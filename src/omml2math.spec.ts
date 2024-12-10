@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { Document, Packer, Paragraph, TextRun } from '@seewo-doc/docx';
+import { Document, Packer, Paragraph, TextRun } from 'docx';
 import { describe, test, expect } from 'vitest';
 import { convertOmml2Math } from './omml2math';
 
@@ -23,7 +23,7 @@ describe('convertOmml2Math', () => {
           </m:rad>
         </m:oMath>
       `);
-    
+
       const doc = new Document({
         sections: [
           {
@@ -46,16 +46,16 @@ describe('convertOmml2Math', () => {
 
       const buffer = await Packer.toBuffer(doc);
 
-      const dirPath = path.resolve(process.cwd(), '.temp'); 
+      const dirPath = path.resolve(process.cwd(), '.temp');
       if (!fs.existsSync(dirPath)) {
         fs.mkdirSync(dirPath);
       }
 
-      fs.writeFileSync(path.resolve(process.cwd(), '.temp/omml2math.docx'), buffer, { flag: 'w' }); 
+      fs.writeFileSync(path.resolve(process.cwd(), '.temp/omml2math.docx'), buffer, { flag: 'w' });
       expect('x').toMatch('x');
     } catch (error) {
       console.error(error);
-      expect('x').toMatch('y'); 
-    }  
+      expect('x').toMatch('y');
+    }
   });
 });

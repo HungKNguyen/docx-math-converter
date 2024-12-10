@@ -12,7 +12,7 @@ import {
   MathRadical,
   MathLimitUpper,
   MathLimitLower,
-} from "@seewo-doc/docx";
+} from "docx";
 
 export function convertOmml2Math(ommlString: string) {
   let doc: Document;
@@ -24,7 +24,7 @@ export function convertOmml2Math(ommlString: string) {
     const parser = new DOMParser();
     doc = parser.parseFromString(ommlString, 'text/xml');
   }
-  
+
   const mathElement = doc.getElementsByTagName('m:oMath')[0];
   const children = convertChildren(mathElement.children);
 
@@ -169,7 +169,7 @@ function buildNary(item: Element) {
   const e = item.getElementsByTagName('m:e')[0];
   const sub = item.getElementsByTagName('m:sub')[0];
   const sup = item.getElementsByTagName('m:sup')[0];
-  
+
   if (charVal === '∑') {
     return new MathSum({
       children: convertChildren(e.children),

@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { Document, Packer, Paragraph, TextRun } from '@seewo-doc/docx';
+import {Document, Packer, Paragraph, TextRun} from 'docx';
 import { describe, test, expect } from 'vitest';
 import { convertLatex2Math, mathJaxReady } from './latex2math';
 
@@ -9,7 +9,6 @@ describe('convertLatex2Math', () => {
     try {
       await mathJaxReady();
       const mathObj = convertLatex2Math('\\lim_{x\\rightarrow\\infty}(1+\\frac{1}{x})^x=e');
-    
       const doc = new Document({
         sections: [
           {
@@ -28,20 +27,20 @@ describe('convertLatex2Math', () => {
             ],
           },
         ],
-      });
+      } as any);
 
       const buffer = await Packer.toBuffer(doc);
 
-      const dirPath = path.resolve(process.cwd(), '.temp'); 
+      const dirPath = path.resolve(process.cwd(), '.temp');
       if (!fs.existsSync(dirPath)) {
         fs.mkdirSync(dirPath);
       }
 
-      fs.writeFileSync(path.resolve(process.cwd(), '.temp/latex2math.docx'), buffer, { flag: 'w' }); 
+      fs.writeFileSync(path.resolve(process.cwd(), '.temp/latex2math.docx'), buffer, { flag: 'w' });
       expect('x').toMatch('x');
     } catch (error) {
       console.error(error);
-      expect('x').toMatch('y'); 
-    }  
+      expect('x').toMatch('y');
+    }
   });
 });

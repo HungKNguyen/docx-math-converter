@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { Document, Packer, Paragraph, TextRun } from '@seewo-doc/docx';
+import { Document, Packer, Paragraph, TextRun } from 'docx';
 import { describe, test, expect } from 'vitest';
 import { convertMathMl2Math } from './mathml2math';
 
@@ -30,7 +30,7 @@ describe('convertMathMl2Math', () => {
           </mrow>
         </math>
       `);
-    
+
       const doc = new Document({
         sections: [
           {
@@ -53,16 +53,16 @@ describe('convertMathMl2Math', () => {
 
       const buffer = await Packer.toBuffer(doc);
 
-      const dirPath = path.resolve(process.cwd(), '.temp'); 
+      const dirPath = path.resolve(process.cwd(), '.temp');
       if (!fs.existsSync(dirPath)) {
         fs.mkdirSync(dirPath);
       }
 
-      fs.writeFileSync(path.resolve(process.cwd(), '.temp/mathml2math.docx'), buffer, { flag: 'w' }); 
+      fs.writeFileSync(path.resolve(process.cwd(), '.temp/mathml2math.docx'), buffer, { flag: 'w' });
       expect('x').toMatch('x');
     } catch (error) {
       console.error(error);
-      expect('x').toMatch('y'); 
-    }  
+      expect('x').toMatch('y');
+    }
   });
 });
